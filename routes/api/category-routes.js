@@ -7,11 +7,8 @@ router.get('/', async (req, res) => {
   res.status(200).json(categories);
 });
 
-
-
 // Get a single category
 router.get('/:id', async (req, res) => {
-
   const category = await Category.findByPk(req.params.id, { include: [{ model: Product }] });
 
   // Error Handling
@@ -27,9 +24,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const newCategory = await Category.create(req.body);
   res.status(200).json(newCategory);
-
 });
-
 
 
 // Update a category, using ID in req.body to identify
@@ -42,10 +37,9 @@ router.put('/:id', async (req, res) => {
 
 // Delete a category, using ID in req.body
 router.delete('/:id', async (req, res) => {
-  const deleted = await Category.destroy({ where: { id: req.params.id } });
+  const removedCategory = await Category.destroy({ where: { id: req.params.id } });
 
-  !deleted ? res.status(404).json({ message: 'This ID could not be found' }) : res.status(200).json(deleted);
-
+  !removedCategory ? res.status(404).json({ message: 'This ID could not be found' }) : res.status(200).json(removedCategory);
 });
 
 module.exports = router;
