@@ -35,22 +35,22 @@ router.post('/', async (req, res) => {
 // Route for updating a tag
 router.put('/:id', async (req, res) => {
   const updatedTag = await Tag.update(req.body, {
-    where: { id: req.params.id},
+    where: { id: req.params.id },
   });
-    if (!updatedTag) {
-      res.status(404).json({message: "Updated Failed"});
-      return;
-    }
-    res.status(200).json(updatedTag);
-  });
+  if (!updatedTag) {
+    res.status(404).json({ message: "Updated Failed" });
+    return;
+  }
+  res.status(200).json(updatedTag);
+});
 
 
 // Route for deleting a tag
 router.delete('/:id', async (req, res) => {
-  const deletedTag = await Tag.destroy({ where: {id: req.params.id}});
+  const deletedTag = await Tag.destroy({ where: { id: req.params.id } });
 
   if (!deletedTag) {
-    res.status(404).json({message: "Could not find tag to delete"});
+    res.status(404).json({ message: "Could not find tag to delete" });
     return;
   }
   res.status(200).json(deletedTag);
